@@ -38,9 +38,9 @@ def readstkData(rootpath, stockcode, sday, eday):
     # Wash data
     returndata = returndata.sort_index()
     returndata.index.name = 'DateTime'
-    returndata.drop('amount', axis=1, inplace = True)
-    returndata.columns = ['Open', 'High', 'Close', 'Low', 'Volume']
-
+#    returndata.drop('amount', axis=1, inplace = True)
+    returndata.columns = ['Open', 'High', 'Low', 'Close', 'Volume']
+    returndata.drop(returndata.index[:3]) # 删除多余的行
     returndata = returndata[returndata.index < eday.strftime('%Y-%m-%d')]
     return returndata
 

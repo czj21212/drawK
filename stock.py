@@ -11,11 +11,12 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import mpl_finance as mpf
 import matplotlib.dates as mpd
+from matplotlib.backends.backend_pdf import PdfPages
 from pandas import DataFrame, Series
 import pandas as pd; import numpy as np
 from matplotlib import dates as mdates
 
-stock_b_code = 'abc001' #股票名称
+stock_b_code = 'abc010' #股票名称
 filename = 'stockdata.xlsx'
 returndata = pd.read_excel(filename, sheet_name=stock_b_code, index_col = 0, encoding = 'gbk')
 returndata = pd.DataFrame(returndata)
@@ -37,7 +38,7 @@ for i in range(0,m):
 #    temp = tuple(temp)
     date_time = datetime.datetime.strptime(returndata.index.values[i].replace(" ", ""), '%Y/%m/%d')
     t = mdates.date2num(date_time)
-    print(temp)
+#    print(temp)
     pr.extend([[
         t,
         returndata.Open.values[i],
@@ -49,7 +50,7 @@ for i in range(0,m):
 		  
 quotes = pr[0:]
 
-print(quotes)
+#print(quotes)
 
 fig,ax = plt.subplots(figsize=(30,6))
 fig.subplots_adjust(bottom=0.2)
@@ -58,4 +59,10 @@ plt.grid(False)
 ax.xaxis_date()
 ax.autoscale_view()
 plt.setp(plt.gca().get_xticklabels(), rotation=30) 
+#pdf = PdfPages()
+plt.savefig(stock_b_code + '.pdf')
 plt.show()
+
+print ('savefig...')
+
+
